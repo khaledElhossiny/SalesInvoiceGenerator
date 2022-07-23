@@ -5,19 +5,7 @@
  */
 package sales.invoice.generator;
 
-import GUIForms.SalesInvoiceGeneratorFrame;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import sales.invoice.generator.Classes.Invoice;
-import sales.invoice.generator.Classes.InvoiceDetails;
-
+import View.SalesInvoiceGeneratorFrame;
 
 /**
  *
