@@ -26,10 +26,10 @@ public class FileOperations implements FileOperationsInterface {
         ArrayList<InvoiceHeader> invoiceHeaders = new ArrayList<>();
         try {
             String invoiceHeadersCurrentLine, invoiceLinesCurrentLine;
-            Scanner invoiceHeadersScanner = new Scanner(new File("C:\\Users\\Khaled\\Desktop\\InvoiceHeader.csv"));
+            Scanner invoiceHeadersScanner = new Scanner(new File("InvoiceHeader.csv"));
             while (invoiceHeadersScanner.hasNext()) //returns a boolean value
             {
-                Scanner invoiceLinesScanner = new Scanner(new File("C:\\Users\\Khaled\\Desktop\\InvoiceLine.csv"));
+                Scanner invoiceLinesScanner = new Scanner(new File("InvoiceLine.csv"));
                 ArrayList<InvoiceLines> invoiceLines = new ArrayList<>();
                 invoiceHeadersCurrentLine = invoiceHeadersScanner.nextLine();
                 while (invoiceLinesScanner.hasNext()) //returns a boolean value

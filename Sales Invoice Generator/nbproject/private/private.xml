@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/sales/invoice/generator/Interfaces/InvoiceInterface.java</file>
             <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/sales/invoice/generator/SalesInvoiceGenerator.java</file>
-            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/sales/invoice/generator/Classes/InvoiceDetails.java</file>
-            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/GUIForms/SalesInvoiceGeneratorFrame.java</file>
+            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/View/SalesInvoiceGeneratorFrame.java</file>
+            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/Controller/InvoiceController.java</file>
+            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/Model/InvoiceHeader.java</file>
+            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/Model/InvoiceLines.java</file>
+            <file>file:/C:/Users/Khaled/Documents/NetBeansProjects/Sales%20Invoice%20Generator/src/Model/FileOperations.java</file>
         </group>
     </open-files>
 </project-private>
