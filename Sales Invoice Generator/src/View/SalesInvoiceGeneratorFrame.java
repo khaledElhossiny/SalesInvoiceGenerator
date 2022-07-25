@@ -410,6 +410,7 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
     private void saveInvoiceDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveInvoiceDetailsActionPerformed
         // TODO add your handling code here:
         stopCellEditingClearSelections();
+        System.out.println("dfsjdfsjhdfjs");
         DefaultTableModel invoiceDetailsTablemodel = (DefaultTableModel) invoiceDetailsTable.getModel();
         DefaultTableModel invoiceTableModel = (DefaultTableModel) invoiceTable.getModel();
         try {
@@ -434,35 +435,6 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
             invoiceHeaders.get(selectedInvoiceNumberIdx).setCustomerName(customerNameTxtFeild.getText());
             invoiceHeaders.get(selectedInvoiceNumberIdx).setInvoiceLines(invoiceLines);
         } catch (ArrayIndexOutOfBoundsException ex) {
-            stopCellEditingClearSelections();
-            double invoiceTotal = 0;
-            int selectedInvoiceNumberIdx = Integer.parseInt(invoiceTableModel.getValueAt(0, 0).toString()) - 1;
-            ArrayList<InvoiceLines> invoiceLines = new ArrayList<>();
-            int invoiceLinesRowCount = 0;
-            for (int invoiceLinesRow = 0; invoiceLinesRow < invoiceDetailsTablemodel.getRowCount(); invoiceLinesRow++) {
-                String cellValue = invoiceDetailsTablemodel.getValueAt(invoiceLinesRow, 1).toString();
-//                if (cellValue.trim().length() != 0) {
-//                    invoiceLinesRowCount++;
-//                }
-                System.out.println(cellValue.trim().length());
-            }
-            for (int invoiceLinesIdx = 0; invoiceLinesIdx < invoiceLinesRowCount; invoiceLinesIdx++) {
-                InvoiceLines myInvoiceLine = new InvoiceLines(
-                        selectedInvoiceNumberIdx + 1,
-                        invoiceDetailsTablemodel.getValueAt(invoiceLinesIdx, 1).toString(),
-                        Float.parseFloat(invoiceDetailsTablemodel.getValueAt(invoiceLinesIdx, 2).toString()),
-                        Integer.parseInt(invoiceDetailsTablemodel.getValueAt(invoiceLinesIdx, 3).toString())
-                );
-                invoiceDetailsTablemodel.setValueAt(invoiceController.calculateInvoiceLineTotalPrice(myInvoiceLine), invoiceLinesIdx, 4);
-                invoiceTotal += invoiceController.calculateInvoiceLineTotalPrice(myInvoiceLine);
-                invoiceLines.add(myInvoiceLine);
-            }
-            invoiceTableModel.setValueAt(invoiceDateTxtFeild.getText(), selectedInvoiceNumberIdx, 1);
-            invoiceTableModel.setValueAt(customerNameTxtFeild.getText(), selectedInvoiceNumberIdx, 2);
-            invoiceTableModel.setValueAt(invoiceTotal, selectedInvoiceNumberIdx, 3);
-            invoiceHeaders.get(selectedInvoiceNumberIdx).setInvoiceDate(invoiceDateTxtFeild.getText());
-            invoiceHeaders.get(selectedInvoiceNumberIdx).setCustomerName(customerNameTxtFeild.getText());
-            invoiceHeaders.get(selectedInvoiceNumberIdx).setInvoiceLines(invoiceLines);
         }
     }//GEN-LAST:event_saveInvoiceDetailsActionPerformed
 

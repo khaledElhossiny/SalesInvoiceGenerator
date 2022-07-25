@@ -57,8 +57,8 @@ public class FileOperations implements FileOperationsInterface {
         try {
 //            FileWriter writer = new FileWriter("c:\\data\\output.txt", true);  // appends to file
 //            FileWriter writer = new FileWriter("c:\\data\\output.txt", false); // overwrites file
-            FileWriter invoiceHeadersWriter = new FileWriter("C:\\Users\\Khaled\\Desktop\\InvoiceHeader.csv", true);
-            FileWriter invoiceLinesWriter = new FileWriter("C:\\Users\\Khaled\\Desktop\\InvoiceLine.csv", true);
+            FileWriter invoiceHeadersWriter = new FileWriter("InvoiceHeader.csv", true);
+            FileWriter invoiceLinesWriter = new FileWriter("InvoiceLine.csv", true);
             for (int i = 0; i < invoiceHeaders.size(); i++) {
                 invoiceHeadersWriter.write(String.valueOf(invoiceHeaders.get(i).getInvoiceNum()));
                 invoiceHeadersWriter.write(",");
@@ -97,7 +97,7 @@ public class FileOperations implements FileOperationsInterface {
         try {
             String currentLine;
             //Read InvoiceLines
-            Scanner scanner = new Scanner(new File("C:\\Users\\Khaled\\Desktop\\InvoiceHeader.csv"));
+            Scanner scanner = new Scanner(new File("InvoiceHeader.csv"));
             while (scanner.hasNext()) //returns a boolean value
             {
                 currentLine = scanner.nextLine();

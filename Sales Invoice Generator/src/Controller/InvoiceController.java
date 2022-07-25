@@ -30,8 +30,8 @@ public class InvoiceController {
     public void saveInvoices(ArrayList<InvoiceHeader> invoiceHeaders) {
         if (!invoiceHeaders.isEmpty()) {
             FileOperations fileOperations = new FileOperations();
-            fileOperations.deleteFile("C:\\Users\\Khaled\\Desktop\\InvoiceHeader.csv");
-            fileOperations.deleteFile("C:\\Users\\Khaled\\Desktop\\InvoiceLine.csv");
+            fileOperations.deleteFile("InvoiceHeader.csv");
+            fileOperations.deleteFile("InvoiceLine.csv");
             fileOperations.writeFile(invoiceHeaders);
         }
     }
