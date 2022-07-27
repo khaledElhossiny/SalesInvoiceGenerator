@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,36 +31,19 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
      */
     InvoiceController invoiceController;
     ArrayList<InvoiceHeader> invoiceHeaders;
-//        //Invoice 1
-//        InvoiceHeader invoiceHeader1 = new InvoiceHeader();
-//        ArrayList<InvoiceLines> invoiceLines1 = new ArrayList<>();
-//        invoiceLines1.add(new InvoiceLines(invoiceHeader1.getInvoiceNum(), "Mobile", 3000.5, 2));
-//        invoiceLines1.add(new InvoiceLines(invoiceHeader1.getInvoiceNum(), "Charger", 300.99, 2));
-//        invoiceLines1.add(new InvoiceLines(invoiceHeader1.getInvoiceNum(), "Cover", 150.99, 3));
-//        invoiceLines1.add(new InvoiceLines(invoiceHeader1.getInvoiceNum(), "Headphone", 50.5, 3));
-//        invoiceHeader1.setCustomerName("Khaled");
-//        invoiceHeader1.setInvoiceLines(invoiceLines1);
-//        invoiceHeaders.add(invoiceHeader1);
-//        //Invoice 2
-//        InvoiceHeader invoiceHeader2 = new InvoiceHeader();
-//        ArrayList<InvoiceLines> invoiceLines2 = new ArrayList<>();
-//        invoiceLines2.add(new InvoiceLines(invoiceHeader2.getInvoiceNum(), "Laptop", 9169.99, 1));
-//        invoiceLines2.add(new InvoiceLines(invoiceHeader2.getInvoiceNum(), "Charger", 499.99, 1));
-//        invoiceLines2.add(new InvoiceLines(invoiceHeader2.getInvoiceNum(), "Bag", 300.00, 1));
-//        invoiceHeader2.setCustomerName("Mohamed");
-//        invoiceHeader2.setInvoiceLines(invoiceLines2);
-//        invoiceHeaders.add(invoiceHeader2);
-//        //Save Invoice
-//        new InvoiceController().SaveInvoice(invoiceHeaders);
 
     private void initializeInvoiceHeaderTable() {
         DefaultTableModel invoiceTablemodel = (DefaultTableModel) invoiceTable.getModel();
         invoiceHeaders = invoiceController.readInvoices();
-        for (int invoiceIdx = 0; invoiceIdx < invoiceHeaders.size(); invoiceIdx++) {
-            invoiceTablemodel.addRow(new Object[]{invoiceHeaders.get(invoiceIdx).getInvoiceNum(),
-                invoiceHeaders.get(invoiceIdx).getInvoiceDate(),
-                invoiceHeaders.get(invoiceIdx).getCustomerName(),
-                invoiceController.calculateInvoiceHeaderTotalPrice(invoiceHeaders.get(invoiceIdx))});
+        if (invoiceHeaders.size() > 0) {
+            for (int invoiceIdx = 0; invoiceIdx < invoiceHeaders.size(); invoiceIdx++) {
+                invoiceTablemodel.addRow(new Object[]{invoiceHeaders.get(invoiceIdx).getInvoiceNum(),
+                    invoiceHeaders.get(invoiceIdx).getInvoiceDate(),
+                    invoiceHeaders.get(invoiceIdx).getCustomerName(),
+                    invoiceController.calculateInvoiceHeaderTotalPrice(invoiceHeaders.get(invoiceIdx))});
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No invoices available to display, Please make sure the files are not empty", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -357,28 +341,27 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
         DefaultTableModel invoiceDetailsTablemodel = (DefaultTableModel) invoiceDetailsTable.getModel();
         invoiceDetailsTablemodel.setRowCount(0);    //remove old selection display
         DefaultTableModel invoiceTableModel = (DefaultTableModel) invoiceTable.getModel();
-        try {
-            int selectedInvoiceNumberIdx = Integer.parseInt(invoiceTableModel.getValueAt(invoiceTable.getSelectedRow(), 0).toString()) - 1;
-            invoicNoLblValue.setText(String.valueOf(selectedInvoiceNumberIdx + 1));
-            invoiceDateTxtFeild.setText(invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceDate());
-            customerNameTxtFeild.setText(invoiceHeaders.get(selectedInvoiceNumberIdx).getCustomerName());
-            invoiceTotalLblValue.setText(String.valueOf(invoiceController.calculateInvoiceHeaderTotalPrice(
-                    invoiceHeaders.get(selectedInvoiceNumberIdx)))
-            );
-            for (int invoiceDetailsIdx = 0; invoiceDetailsIdx < invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().size();
-                    invoiceDetailsIdx++) {
-                invoiceDetailsTablemodel.addRow(
-                        new Object[]{
-                            invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getInvoiceNum(),
-                            invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getItemName(),
-                            invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getItemPrice(),
-                            invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getCount(),
-                            invoiceController.calculateInvoiceLineTotalPrice(invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines()
-                                    .get(invoiceDetailsIdx))
-                        });
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
+
+        int selectedInvoiceNumberIdx = Integer.parseInt(invoiceTableModel.getValueAt(invoiceTable.getSelectedRow(), 0).toString()) - 1;
+        invoicNoLblValue.setText(String.valueOf(selectedInvoiceNumberIdx + 1));
+        invoiceDateTxtFeild.setText(invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceDate());
+        customerNameTxtFeild.setText(invoiceHeaders.get(selectedInvoiceNumberIdx).getCustomerName());
+        invoiceTotalLblValue.setText(String.valueOf(invoiceController.calculateInvoiceHeaderTotalPrice(
+                invoiceHeaders.get(selectedInvoiceNumberIdx)))
+        );
+        for (int invoiceDetailsIdx = 0; invoiceDetailsIdx < invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().size();
+                invoiceDetailsIdx++) {
+            invoiceDetailsTablemodel.addRow(
+                    new Object[]{
+                        invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getInvoiceNum(),
+                        invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getItemName(),
+                        invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getItemPrice(),
+                        invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines().get(invoiceDetailsIdx).getCount(),
+                        invoiceController.calculateInvoiceLineTotalPrice(invoiceHeaders.get(selectedInvoiceNumberIdx).getInvoiceLines()
+                                .get(invoiceDetailsIdx))
+                    });
         }
+
     }
 
     private void displayInvoices() {
@@ -410,7 +393,6 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
     private void saveInvoiceDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveInvoiceDetailsActionPerformed
         // TODO add your handling code here:
         stopCellEditingClearSelections();
-        System.out.println("dfsjdfsjhdfjs");
         DefaultTableModel invoiceDetailsTablemodel = (DefaultTableModel) invoiceDetailsTable.getModel();
         DefaultTableModel invoiceTableModel = (DefaultTableModel) invoiceTable.getModel();
         try {
@@ -435,6 +417,7 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
             invoiceHeaders.get(selectedInvoiceNumberIdx).setCustomerName(customerNameTxtFeild.getText());
             invoiceHeaders.get(selectedInvoiceNumberIdx).setInvoiceLines(invoiceLines);
         } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, "Please select invoice, make sure there is data available, then click Save button", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_saveInvoiceDetailsActionPerformed
 
@@ -468,11 +451,14 @@ public class SalesInvoiceGeneratorFrame extends javax.swing.JFrame {
         try {
             int selectedInvoiceNumberIdx = Integer.parseInt(invoiceTableModel.getValueAt(invoiceTable.getSelectedRow(), 0).toString()) - 1;
             invoiceHeaders.remove(selectedInvoiceNumberIdx);
+            JOptionPane.showMessageDialog(null, "Please click File->Save to confirm Delete or click Cancel to Undo", "Message", JOptionPane.INFORMATION_MESSAGE);
             invoiceTableModel.removeRow(invoiceTable.getSelectedRow());
             invoiceTableModel.fireTableDataChanged();
             invoiceDetailsTablemodel.getDataVector().removeAllElements();
             invoiceDetailsTablemodel.fireTableDataChanged();
+            JOptionPane.showMessageDialog(null, "Deleted Successfully", "Message", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, "Please select invoice and then click Delete button", "Error", JOptionPane.ERROR_MESSAGE);
         }
         stopCellEditingClearSelections();
     }//GEN-LAST:event_deleteInvoiceBtnActionPerformed

@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import sales.invoice.generator.Interfaces.FileOperationsInterface;
 
 /**
@@ -48,6 +49,7 @@ public class FileOperations implements FileOperationsInterface {
             }
             invoiceHeadersScanner.close();
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "File Not Found, make sure files are in the root directory", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return invoiceHeaders;
     }
@@ -80,6 +82,7 @@ public class FileOperations implements FileOperationsInterface {
             invoiceHeadersWriter.close();
             invoiceLinesWriter.close();
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Cannot Write To File", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -112,7 +115,7 @@ public class FileOperations implements FileOperationsInterface {
             }
             scanner.close();
         } catch (FileNotFoundException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "File Not Found, make sure files are in the root directory", "Error", JOptionPane.ERROR_MESSAGE);
             lastInvoiceNum = 1;
         }
         return lastInvoiceNum;
